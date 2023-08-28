@@ -19,6 +19,7 @@ public class FileUtils {
     private static File cooperationIdMapFile;
     private static File reserveIdMapFile;
     private static File beachIdMapFile;
+    private static File cityCodeMapFile;
     private static File statisticsFile;
     private static File infoChangedFile;
     private static File exportedStatisticsFile;
@@ -27,7 +28,6 @@ public class FileUtils {
     private static File otherLogFile;
     private static File simpleLogFile;
     private static File runtimeLogFile;
-    private static File cityCodeFile;
     private static File friendWatchFile;
     private static File wuaFile;
 
@@ -87,19 +87,10 @@ public class FileUtils {
         return configDirectory;
     }
 
-    public static File getCityCodeFile() {
-        if (cityCodeFile == null) {
-            cityCodeFile = new File(getMainDirectoryFile(), "cityCode.json");
-            if(cityCodeFile.exists() && cityCodeFile.isDirectory())
-                cityCodeFile.delete();
-        }
-        return cityCodeFile;
-    }
-
     public static File getFriendWatchFile() {
         if (friendWatchFile == null) {
             friendWatchFile = new File(getMainDirectoryFile(), "friendWatch.json");
-            if(friendWatchFile.exists() && friendWatchFile.isDirectory())
+            if (friendWatchFile.exists() && friendWatchFile.isDirectory())
                 friendWatchFile.delete();
         }
         return friendWatchFile;
@@ -182,6 +173,15 @@ public class FileUtils {
                 beachIdMapFile.delete();
         }
         return beachIdMapFile;
+    }
+
+    public static File getCityCodeMapFile() {
+        if (cityCodeMapFile == null) {
+            cityCodeMapFile = new File(getMainDirectoryFile(), "cityCode.list");
+            if (cityCodeMapFile.exists() && cityCodeMapFile.isDirectory())
+                cityCodeMapFile.delete();
+        }
+        return cityCodeMapFile;
     }
 
     public static File getStatisticsFile() {

@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import pansong291.xposed.quickenergy.R;
@@ -23,11 +23,15 @@ import pansong291.xposed.quickenergy.util.Config;
 import pansong291.xposed.quickenergy.util.FileUtils;
 import pansong291.xposed.quickenergy.util.PermissionUtil;
 import pansong291.xposed.quickenergy.util.Statistics;
+import pansong291.xposed.quickenergy.util.RandomUtils;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+    private static String[] strArray;
     TextView tvStatistics;
+    Button btnHelp;
+    TextView tv_version;
 
     public static String version = "";
 
@@ -62,42 +66,29 @@ public class MainActivity extends Activity {
         }
         return isExp;
     }
-    /**
-     * 判断当前应用是否是debug状态
-     */
-    public static boolean isApkInDebug(Context context) {
-        try {
-            ApplicationInfo info = context.getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setModuleActive(isExpModuleActive(this));
+        PermissionUtil.requestPermissions(this);
 
         tvStatistics = findViewById(R.id.tv_statistics);
-//        Button btnGithub = findViewById(R.id.btn_github);
-//        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-//        int height = metrics.heightPixels;
+        btnHelp = findViewById(R.id.btn_help);
+        tv_version = findViewById(R.id.tv_version);
+        if (strArray == null)
+            strArray = getResources().getStringArray(R.array.sentences);
+        if (strArray != null)
+            btnHelp.setText(strArray[RandomUtils.nextInt(0, strArray.length)]);
 
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            version = " v" + packageInfo.versionName;
+            version = packageInfo.versionName;
+            tv_version.setText("v" + version);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
-        this.setTitle(this.getTitle() + version);
-
-        setModuleActive(isExpModuleActive(this));
-        PermissionUtil.requestPermissions(this);
-        new AlertDialog.Builder(this)
-                .setTitle("提示")
-                .setMessage("本APP是为了学习研究开发，免费提供，不得进行任何形式的转发、发布、传播。请于24小时内卸载本APP。如果您是购买的可能已经被骗，请联系卖家退款。")
-                .setNegativeButton("我知道了", null)
-                .create().show();
+        this.setTitle(this.getTitle());
     }
 
     @Override
@@ -108,16 +99,6 @@ public class MainActivity extends Activity {
 
     @SuppressLint("NonConstantResourceId")
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_test) {
-            if (isApkInDebug(this)) {
-                Toast toast = Toast.makeText(this, "测试", Toast.LENGTH_SHORT);
-                toast.setGravity(toast.getGravity(), toast.getXOffset(), Config.toastOffsetY());
-                toast.show();
-                sendBroadcast(new Intent("com.eg.android.AlipayGphone.xqe.test"));
-            }
-            return;
-        }
-
         String data = "file://";
         switch (v.getId()) {
             case R.id.btn_forest_log:
@@ -132,6 +113,10 @@ public class MainActivity extends Activity {
                 data += FileUtils.getOtherLogFile().getAbsolutePath();
                 break;
 
+            case R.id.btn_help:
+                data = "https://github.com/pansong291/XQuickEnergy/wiki";
+                break;
+
             case R.id.btn_github:
                 data = "https://github.com/constanline/XQuickEnergy";
                 break;
@@ -139,10 +124,14 @@ public class MainActivity extends Activity {
             case R.id.btn_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return;
+
             case R.id.btn_friend_watch:
-                ListDialog.show(this, getString(R.string.friend_watch), FriendWatch.getList(), new ArrayList<>(), null, ListDialog.ListType.SHOW);
+                ListDialog.show(this, getString(R.string.friend_watch), FriendWatch.getList(), new ArrayList<>(), null,
+                        ListDialog.ListType.SHOW);
                 return;
+
         }
+
         Intent it = new Intent(this, HtmlViewerActivity.class);
         it.setData(Uri.parse(data));
         startActivity(it);
@@ -165,9 +154,11 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 1:
-                int state = item.isChecked() ? PackageManager.COMPONENT_ENABLED_STATE_DEFAULT : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                int state = item.isChecked() ? PackageManager.COMPONENT_ENABLED_STATE_DEFAULT
+                        : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
                 getPackageManager()
-                        .setComponentEnabledSetting(new ComponentName(this, getClass().getCanonicalName() + "Alias"), state, PackageManager.DONT_KILL_APP);
+                        .setComponentEnabledSetting(new ComponentName(this, getClass().getCanonicalName() + "Alias"),
+                                state, PackageManager.DONT_KILL_APP);
                 item.setChecked(!item.isChecked());
                 break;
 
@@ -186,15 +177,14 @@ public class MainActivity extends Activity {
             case 4:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void setModuleActive(boolean b) {
-//        ImageView ivUnactivated = findViewById(R.id.iv_unactivated);
-//        ivUnactivated.setVisibility(b ? View.GONE : View.VISIBLE);
-
-        this.setTitle(this.getTitle() + (b ? "【已激活】" : "【未激活】"));
+        TextView tvUnActive = findViewById(R.id.tv_unactive);
+        tvUnActive.setVisibility(b ? View.GONE : View.VISIBLE);
     }
 
 }

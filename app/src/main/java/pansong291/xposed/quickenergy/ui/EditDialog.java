@@ -56,7 +56,8 @@ public class EditDialog {
                                     int i = 0;
                                     try {
                                         i = Integer.parseInt(edt.getText().toString());
-                                    } catch (Throwable ignored) { }
+                                    } catch (Throwable ignored) {
+                                    }
                                     switch (mode) {
                                         case TOAST_OFFSET_Y:
                                             Config.setToastOffsetY(i);
@@ -81,7 +82,6 @@ public class EditDialog {
                                                 Config.setLimitCount(i);
                                             }
                                             break;
-
                                         case DOUBLE_CARD_TIME:
                                             Config.setDoubleCardTime(edt.getText().toString());
                                             break;
@@ -135,7 +135,6 @@ public class EditDialog {
                                             if (i >= 0 && i < 24)
                                                 Config.setLatestExchangeTime(i);
                                             break;
-
                                         case SYNC_STEP_COUNT:
                                             if (i > 100000)
                                                 i = 100000;
@@ -143,7 +142,6 @@ public class EditDialog {
                                                 i = 0;
                                             Config.setSyncStepCount(i);
                                             break;
-
                                         case WAIT_WHEN_EXCEPTION:
                                             if (i < 0)
                                                 i = 0;
@@ -175,7 +173,8 @@ public class EditDialog {
                                             break;
 
                                     }
-                                } catch(Throwable ignored) { }
+                                } catch (Throwable ignored) {
+                                }
                             }
                         }.setData(c))
                 .create();
@@ -200,7 +199,6 @@ public class EditDialog {
             case LIMIT_COUNT:
                 str = String.valueOf(Config.getLimitCount());
                 break;
-
             case DOUBLE_CARD_TIME:
                 str = Config.doubleCardTime();
                 break;

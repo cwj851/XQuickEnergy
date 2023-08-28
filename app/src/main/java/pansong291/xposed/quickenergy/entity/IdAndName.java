@@ -7,9 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class IdAndName implements Comparable<IdAndName> {
-
     public String name;
-
     public String id;
 
     private ArrayList<String> pinyin;

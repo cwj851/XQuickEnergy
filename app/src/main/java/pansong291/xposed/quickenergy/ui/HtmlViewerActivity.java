@@ -32,11 +32,11 @@ public class HtmlViewerActivity extends Activity {
                     @Override
                     public void onProgressChanged(WebView view, int progress) {
                         pgb.setProgress(progress);
-                        if(progress < 100) {
+                        if (progress < 100) {
                             setTitle("Loading...");
                             pgb.setVisibility(View.VISIBLE);
                         } else {
-                            setTitle(mWebView.getTitle() + MainActivity.version);
+                            setTitle(mWebView.getTitle());
                             pgb.setVisibility(View.GONE);
                         }
                     }
@@ -46,7 +46,7 @@ public class HtmlViewerActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        menu.add(0, 1, 0, getString(R.string.open_with_other_browser));
+        //menu.add(0, 1, 0, getString(R.string.open_with_other_browser));
         menu.add(0, 2, 0, getString(R.string.copy_the_url));
         menu.add(0, 3, 0, getString(R.string.scroll_to_top));
         menu.add(0, 4, 0, getString(R.string.scroll_to_bottom));
@@ -55,11 +55,20 @@ public class HtmlViewerActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case 1:
                 Uri uri = Uri.parse(mWebView.getUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 startActivity(intent);
+
+                /*
+                 * Intent it = new Intent(Intent.ACTION_VIEW);
+                 * it.addCategory(Intent.CATEGORY_DEFAULT);
+                 * it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                 * it.setDataAndType(getIntent().getData(), "text/html");
+                 * startActivity(Intent.createChooser(it,
+                 * getString(R.string.choose_a_browser)));
+                 */
                 break;
 
             case 2:

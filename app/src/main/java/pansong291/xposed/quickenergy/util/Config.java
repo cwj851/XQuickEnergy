@@ -28,7 +28,6 @@ public class Config {
     }
 
     private static final String TAG = Config.class.getCanonicalName();
-
     /* application */
     public static final String jn_immediateEffect = "immediateEffect";
     public static final String jn_recordLog = "recordLog";
@@ -46,7 +45,6 @@ public class Config {
     /* forest */
     public static final String jn_collectEnergy = "collectEnergy";
 
-    public static final String jn_ancientTreeCityCodeList = "ancientTreeCityCodeList";
     public static final String jn_collectWateringBubble = "collectWateringBubble";
     public static final String jn_collectProp = "collectProp";
     public static final String jn_ReturnWater33 = "returnWater30";
@@ -67,7 +65,7 @@ public class Config {
     public static final String jn_cooperateWater = "cooperateWater";
     public static final String jn_cooperateWaterList = "cooperateWaterList";
     public static final String jn_ancientTree = "ancientTree";
-    public static final String jn_ancientTreeAreaCodeList = "ancientTreeAreaCodeList";
+    public static final String jn_ancientTreeCityCodeList = "ancientTreeCityCodeList";
     public static final String jn_reserve = "reserve";
     public static final String jn_reserveList = "reserveList";
     public static final String jn_beach = "beach";
@@ -101,6 +99,7 @@ public class Config {
     public static final String jn_whoYouWantGiveTo = "whoYouWantGiveTo";
     public static final String jn_acceptGift = "acceptGift";
     public static final String jn_visitFriendList = "visitFriendList";
+    public static final String jn_chickenDiary = "chickenDiary";
     public static final String jn_antOrchard = "antOrchard";
     public static final String jn_receiveOrchardTaskAward = "receiveOrchardTaskAward";
     public static final String jn_orchardSpreadManureCount = "orchardSpreadManureCount";
@@ -108,6 +107,7 @@ public class Config {
     public static final String jn_antOcean = "antOcean";
     public static final String jn_userPatrol = "userPatrol";
     public static final String jn_animalConsumeProp = "animalConsumeProp";
+    public static final String jn_collectGiftBox = "collectGiftBox";
 
     public static final String jn_enableStall = "enableStall";
     public static final String jn_stallAutoOpen = "stallAutoOpen";
@@ -121,6 +121,7 @@ public class Config {
     public static final String jn_stallAllowOpenTime = "stallAllowOpenTime";
     public static final String jn_stallSelfOpenTime = "tallSelfOpenTime";
     public static final String jn_stallDonate = "stallDonate";
+    public static final String jn_stallInviteRegister = "stallInviteRegister";
 
     /* other */
     public static final String jn_receivePoint = "receivePoint";
@@ -183,7 +184,7 @@ public class Config {
     private List<String> cooperateWaterList;
     private List<Integer> cooperateWaterNumList;
     private boolean ancientTree;
-    private List<String> ancientTreeAreaCodeList;
+    private List<String> ancientTreeCityCodeList;
     private boolean energyRain;
     private boolean reserve;
     private List<String> reserveList;
@@ -203,6 +204,7 @@ public class Config {
     private boolean antOcean;
     private boolean userPatrol;
     private boolean animalConsumeProp;
+    private boolean collectGiftBox;
 
     /* farm */
     private boolean enableFarm;
@@ -232,6 +234,7 @@ public class Config {
     private boolean acceptGift;
     private List<String> visitFriendList;
     private List<Integer> visitFriendCountList;
+    private boolean chickenDiary;
     private boolean antOrchard;
     private boolean receiveOrchardTaskAward;
     private int orchardSpreadManureCount;
@@ -248,6 +251,7 @@ public class Config {
     private int stallAllowOpenTime;
     private int stallSelfOpenTime;
     private boolean stallDonate;
+    private boolean stallInviteRegister;
 
     /* other */
     private boolean receivePoint;
@@ -266,7 +270,7 @@ public class Config {
     private boolean merchantKmdk;
 
     /* base */
-    private volatile static Config config;
+    private static volatile Config config;
 
     /* application */
     public static void setImmediateEffect(boolean b) {
@@ -604,8 +608,8 @@ public class Config {
         return getConfig().ancientTree;
     }
 
-    public static List<String> getAncientTreeAreaCodeList() {
-        return getConfig().ancientTreeAreaCodeList;
+    public static List<String> getAncientTreeCityCodeList() {
+        return getConfig().ancientTreeCityCodeList;
     }
 
     public static void setReserve(boolean b) {
@@ -659,8 +663,8 @@ public class Config {
         return getConfig().exchangeEnergyDoubleClick;
     }
 
-    public static void setExchangeEnergyDoubleClick(boolean exchangeEnergyDoubleClick) {
-        getConfig().exchangeEnergyDoubleClick = exchangeEnergyDoubleClick;
+    public static void setExchangeEnergyDoubleClick(boolean b) {
+        getConfig().exchangeEnergyDoubleClick = b;
         hasChanged = true;
     }
 
@@ -668,8 +672,8 @@ public class Config {
         return getConfig().exchangeEnergyDoubleClickCount;
     }
 
-    public static void setExchangeEnergyDoubleClickCount(int exchangeEnergyDoubleClickCount) {
-        getConfig().exchangeEnergyDoubleClickCount = exchangeEnergyDoubleClickCount;
+    public static void setExchangeEnergyDoubleClickCount(int i) {
+        getConfig().exchangeEnergyDoubleClickCount = i;
         hasChanged = true;
     }
 
@@ -725,6 +729,15 @@ public class Config {
 
     public static boolean animalConsumeProp() {
         return getConfig().animalConsumeProp;
+    }
+
+    public static void setCollectGiftBox(boolean b) {
+        getConfig().collectGiftBox = b;
+        hasChanged = true;
+    }
+
+    public static boolean collectGiftBox() {
+        return getConfig().collectGiftBox;
     }
 
     /* farm */
@@ -909,15 +922,15 @@ public class Config {
         return false;
     }
 
-    private static boolean checkInTimeSpan(String timeStr) {
-        if (timeStr.contains("-")) {
-            String[] arr = timeStr.split("-");
+    private static boolean checkInTimeSpan(String timestr) {
+        if (timestr.contains("-")) {
+            String[] arr = timestr.split("-");
             String min = arr[0];
             String max = arr[1];
             String now = TimeUtil.getTimeStr();
             return min.compareTo(now) <= 0 && max.compareTo(now) >= 0;
         } else {
-            return TimeUtil.checkInTime(-getConfig().checkInterval, timeStr);
+            return TimeUtil.checkInTime(-getConfig().checkInterval, timestr);
         }
     }
 
@@ -953,6 +966,15 @@ public class Config {
 
     public static List<Integer> getVisitFriendCountList() {
         return getConfig().visitFriendCountList;
+    }
+
+    public static void setChickenDiary(boolean b) {
+        getConfig().chickenDiary = b;
+        hasChanged = true;
+    }
+
+    public static boolean chickenDiary() {
+        return getConfig().chickenDiary;
     }
 
     public static void setAntOrchard(boolean b) {
@@ -1073,6 +1095,15 @@ public class Config {
 
     public static boolean stallDonate() {
         return getConfig().stallDonate;
+    }
+
+    public static void setStallInviteRegister(boolean b) {
+        getConfig().stallInviteRegister = b;
+        hasChanged = true;
+    }
+
+    public static boolean stallInviteRegister() {
+        return getConfig().stallInviteRegister;
     }
 
     /* other */
@@ -1203,7 +1234,7 @@ public class Config {
     }
 
     /* base */
-    private synchronized static Config getConfig() {
+    private static synchronized Config getConfig() {
         if (config == null || shouldReload && config.immediateEffect) {
             shouldReload = false;
             String confJson = null;
@@ -1264,6 +1295,8 @@ public class Config {
         if (c.cooperateWaterNumList == null)
             c.cooperateWaterNumList = new ArrayList<>();
         c.ancientTree = true;
+        if (c.ancientTreeCityCodeList == null)
+            c.ancientTreeCityCodeList = new ArrayList<>();
         c.reserve = true;
         if (c.reserveList == null)
             c.reserveList = new ArrayList<>();
@@ -1284,6 +1317,7 @@ public class Config {
         c.antOcean = true;
         c.userPatrol = true;
         c.animalConsumeProp = true;
+        c.collectGiftBox = true;
 
         c.enableFarm = true;
         c.rewardFriend = true;
@@ -1306,11 +1340,8 @@ public class Config {
             c.feedFriendAnimalList = new ArrayList<>();
         if (c.feedFriendCountList == null)
             c.feedFriendCountList = new ArrayList<>();
-        c.farmGameTime = new ArrayList<>();
-        c.farmGameTime.add("2200-2400");
-        c.animalSleepTime = new ArrayList<>();
-        c.animalSleepTime.add("2300-2400");
-        c.animalSleepTime.add("0000-0559");
+        c.doubleCardTime = new ArrayList<>();
+        c.doubleCardTime.add("0700-2000");
         c.notifyFriend = false;
         if (c.dontNotifyFriendList == null)
             c.dontNotifyFriendList = new ArrayList<>();
@@ -1320,6 +1351,7 @@ public class Config {
             c.visitFriendList = new ArrayList<>();
         if (c.visitFriendCountList == null)
             c.visitFriendCountList = new ArrayList<>();
+        c.chickenDiary = true;
         c.antOrchard = true;
         c.receiveOrchardTaskAward = true;
         c.orchardSpreadManureCount = 0;
@@ -1336,6 +1368,7 @@ public class Config {
         c.stallAllowOpenTime = 121;
         c.stallSelfOpenTime = 120;
         c.stallDonate = false;
+        c.stallInviteRegister = false;
 
         c.receivePoint = true;
         c.openTreasureBox = true;
@@ -1366,94 +1399,66 @@ public class Config {
             config = new Config();
 
             config.immediateEffect = jo.optBoolean(jn_immediateEffect, true);
-            Log.i(TAG, jn_immediateEffect + ":" + config.immediateEffect);
 
             config.recordLog = jo.optBoolean(jn_recordLog, true);
-            Log.i(TAG, jn_recordLog + ":" + config.recordLog);
 
             config.showToast = jo.optBoolean(jn_showToast, true);
-            Log.i(TAG, jn_showToast + ":" + config.showToast);
 
             config.toastOffsetY = jo.optInt(jn_toastOffsetY, 0);
-            Log.i(TAG, jn_toastOffsetY + ":" + config.toastOffsetY);
 
             config.stayAwake = jo.optBoolean(jn_stayAwake, true);
-            Log.i(TAG, jn_stayAwake + ":" + config.stayAwake);
 
             config.stayAwakeType = XposedHook.StayAwakeType
                     .valueOf(jo.optString(jn_stayAwakeType, XposedHook.StayAwakeType.BROADCAST.name()));
-            Log.i(TAG, jn_stayAwakeType + ":" + config.stayAwakeType);
 
             config.stayAwakeTarget = XposedHook.StayAwakeTarget
                     .valueOf(jo.optString(jn_stayAwakeTarget, XposedHook.StayAwakeTarget.SERVICE.name()));
-            Log.i(TAG, jn_stayAwakeTarget + ":" + config.stayAwakeTarget);
 
             config.timeoutRestart = jo.optBoolean(jn_timeoutRestart, true);
-            Log.i(TAG, jn_timeoutRestart + ":" + config.timeoutRestart);
 
             config.timeoutType = XposedHook.StayAwakeType
                     .valueOf(jo.optString(jn_timeoutType, XposedHook.StayAwakeType.BROADCAST.name()));
-            Log.i(TAG, jn_timeoutType + ":" + config.timeoutType);
 
             config.startAt7 = jo.optBoolean(jn_startAt7, false);
-            Log.i(TAG, jn_startAt7 + ":" + config.startAt7);
 
             config.enableOnGoing = jo.optBoolean(jn_enableOnGoing, false);
-            Log.i(TAG, jn_enableOnGoing + ":" + config.enableOnGoing);
 
             config.backupRuntime = jo.optBoolean(jn_backupRuntime, false);
-            Log.i(TAG, jn_backupRuntime + ":" + config.backupRuntime);
 
             /* forest */
             config.collectEnergy = jo.optBoolean(jn_collectEnergy, false);
-            Log.i(TAG, jn_collectEnergy + ":" + config.collectEnergy);
 
             config.collectWateringBubble = jo.optBoolean(jn_collectWateringBubble, true);
-            Log.i(TAG, jn_collectWateringBubble + ":" + config.collectWateringBubble);
 
             config.collectProp = jo.optBoolean(jn_collectProp, true);
-            Log.i(TAG, jn_collectProp + ":" + config.collectProp);
 
             config.checkInterval = jo.optInt(jn_checkInterval, 720_000);
-            Log.i(TAG, jn_checkInterval + ":" + config.checkInterval);
 
             config.waitWhenException = jo.optInt(jn_waitWhenException, 60 * 60 * 1000);
-            Log.i(TAG, jn_waitWhenException + ":" + config.waitWhenException);
 
             config.limitCollect = jo.optBoolean("limitCollect", true);
-            Log.i(TAG, "limitCollect" + ":" + config.limitCollect);
 
             config.limitCount = jo.optInt("limitCount", 50);
-            Log.i(TAG, "limitCount" + ":" + config.limitCount);
 
             config.doubleCard = jo.optBoolean("doubleCard", false);
-            Log.i(TAG, "doubleCard" + ":" + config.doubleCard);
 
             config.doubleCardTime = Arrays.asList(jo.optString(jn_doubleCardTime, "0700-0730").split(","));
 
             config.doubleCountLimit = jo.optInt("doubleCountLimit", 6);
-            Log.i(TAG, "doubleCountLimit" + ":" + config.doubleCountLimit);
 
             config.advanceTime = jo.optInt(jn_advanceTime, 0);
-            Log.i(TAG, jn_advanceTime + ":" + config.advanceTime);
 
             config.collectInterval = jo.optInt(jn_collectInterval, 100);
-            Log.i(TAG, jn_collectInterval + ":" + config.collectInterval);
 
             config.collectTimeout = jo.optInt(jn_collectTimeout, 2_000);
-            Log.i(TAG, jn_collectTimeout + ":" + config.collectTimeout);
 
             config.returnWater33 = jo.optInt(jn_ReturnWater33);
-            Log.i(TAG, jn_ReturnWater33 + ":" + config.returnWater33);
 
             config.returnWater18 = jo.optInt(jn_ReturnWater18);
-            Log.i(TAG, jn_ReturnWater18 + ":" + config.returnWater18);
 
             config.returnWater10 = jo.optInt(jn_ReturnWater10);
-            Log.i(TAG, jn_ReturnWater10 + ":" + config.returnWater10);
 
             config.helpFriendCollect = jo.optBoolean(jn_helpFriendCollect, true);
-            Log.i(TAG, jn_helpFriendCollect + ":" + config.helpFriendCollect);
 
             config.dontCollectList = new ArrayList<>();
             if (jo.has(jn_dontCollectList)) {
@@ -1462,7 +1467,6 @@ public class Config {
                     config.dontCollectList.add(ja.getString(i));
                 }
             }
-            Log.i(TAG, jn_dontCollectList + ":" + String.join(",", config.dontCollectList));
 
             config.dontHelpCollectList = new ArrayList<>();
             if (jo.has(jn_dontHelpCollectList)) {
@@ -1471,10 +1475,8 @@ public class Config {
                     config.dontHelpCollectList.add(ja.getString(i));
                 }
             }
-            Log.i(TAG, jn_dontHelpCollectList + ":" + String.join(",", config.dontHelpCollectList));
 
             config.receiveForestTaskAward = jo.optBoolean(jn_receiveForestTaskAward, true);
-            Log.i(TAG, jn_receiveForestTaskAward + ":" + config.receiveForestTaskAward);
 
             config.waterFriendList = new ArrayList<>();
             config.waterCountList = new ArrayList<>();
@@ -1491,13 +1493,10 @@ public class Config {
                     }
                 }
             }
-            Log.i(TAG, jn_waterFriendList + ":" + String.join(",", config.waterFriendList));
 
             config.waterFriendCount = jo.optInt(jn_waterFriendCount, 66);
-            Log.i(TAG, jn_waterFriendCount + ":" + config.waterFriendCount);
 
             config.cooperateWater = jo.optBoolean(jn_cooperateWater, true);
-            Log.i(TAG, jn_cooperateWater + ":" + config.cooperateWater);
 
             config.cooperateWaterList = new ArrayList<>();
             config.cooperateWaterNumList = new ArrayList<>();
@@ -1509,23 +1508,19 @@ public class Config {
                     config.cooperateWaterNumList.add(jaa.getInt(1));
                 }
             }
-            Log.i(TAG, jn_cooperateWaterList + ":" + String.join(",", config.cooperateWaterList));
 
             config.ancientTree = jo.optBoolean(jn_ancientTree, true);
-            Log.i(TAG, jn_ancientTree + ":" + config.ancientTree);
 
-            config.ancientTreeAreaCodeList = new ArrayList<>();
-            if (jo.has(jn_ancientTreeAreaCodeList)) {
-                ja = jo.getJSONArray(jn_ancientTreeAreaCodeList);
+            config.ancientTreeCityCodeList = new ArrayList<>();
+            if (jo.has(jn_ancientTreeCityCodeList)) {
+                ja = jo.getJSONArray(jn_ancientTreeCityCodeList);
                 for (int i = 0; i < ja.length(); i++) {
-                    config.ancientTreeAreaCodeList.add(ja.getString(i));
+                    jaa = ja.getJSONArray(i);
+                    config.ancientTreeCityCodeList.add(jaa.getString(0));
                 }
             }
-            Log.i(TAG, jn_ancientTreeAreaCodeList + ":" + String.join(",", config.ancientTreeAreaCodeList));
 
             config.energyRain = jo.optBoolean(jn_energyRain, true);
-            Log.i(TAG, jn_energyRain + ":" + config.energyRain);
-
             config.giveEnergyRainList = new ArrayList<>();
             if (jo.has(jn_giveEnergyRainList)) {
                 ja = jo.getJSONArray(jn_giveEnergyRainList);
@@ -1534,11 +1529,8 @@ public class Config {
                     config.giveEnergyRainList.add(jaa.getString(0));
                 }
             }
-            Log.i(TAG, jn_giveEnergyRainList + ":" + String.join(",", config.giveEnergyRainList));
 
             config.reserve = jo.optBoolean(jn_reserve, true);
-            Log.i(TAG, jn_reserve + ":" + config.reserve);
-
             config.reserveList = new ArrayList<>();
             config.reserveCountList = new ArrayList<>();
             if (jo.has(jn_reserveList)) {
@@ -1554,11 +1546,8 @@ public class Config {
                     }
                 }
             }
-            Log.i(TAG, jn_reserveList + ":" + String.join(",", config.reserveList));
 
             config.beach = jo.optBoolean(jn_beach, true);
-            Log.i(TAG, jn_beach + ":" + config.beach);
-
             config.beachList = new ArrayList<>();
             config.beachCountList = new ArrayList<>();
             if (jo.has(jn_beachList)) {
@@ -1574,41 +1563,31 @@ public class Config {
                     }
                 }
             }
-            Log.i(TAG, jn_beachList + ":" + String.join(",", config.beachList));
 
             config.exchangeEnergyDoubleClick = jo.optBoolean("exchangeEnergyDoubleClick", false);
-            Log.i(TAG, "exchangeEnergyDoubleClick" + ":" + config.exchangeEnergyDoubleClick);
 
             config.exchangeEnergyDoubleClickCount = jo.optInt("exchangeEnergyDoubleClickCount", 6);
-            Log.i(TAG, "exchangeEnergyDoubleClickCount" + ":" + config.exchangeEnergyDoubleClickCount);
 
             config.ancientTreeOnlyWeek = jo.optBoolean(jn_ancientTreeOnlyWeek, true);
-            Log.i(TAG, jn_ancientTreeOnlyWeek + ":" + config.ancientTreeOnlyWeek);
 
             config.antdodoCollect = jo.optBoolean(jn_antdodoCollect, true);
-            Log.i(TAG, jn_antdodoCollect + ":" + config.antdodoCollect);
 
             config.antOcean = jo.optBoolean(jn_antOcean, true);
-            Log.i(TAG, jn_antOcean + ":" + config.antOcean);
 
             config.userPatrol = jo.optBoolean(jn_userPatrol, true);
-            Log.i(TAG, jn_userPatrol + ":" + config.userPatrol);
 
             config.animalConsumeProp = jo.optBoolean(jn_animalConsumeProp, true);
-            Log.i(TAG, jn_animalConsumeProp + ":" + config.animalConsumeProp);
+
+            config.collectGiftBox = jo.optBoolean(jn_collectGiftBox, true);
 
             /* farm */
             config.enableFarm = jo.optBoolean(jn_enableFarm, true);
-            Log.i(TAG, jn_enableFarm + ":" + config.enableFarm);
 
             config.rewardFriend = jo.optBoolean(jn_rewardFriend, true);
-            Log.i(TAG, jn_rewardFriend + ":" + config.rewardFriend);
 
             config.sendBackAnimal = jo.optBoolean(jn_sendBackAnimal, true);
-            Log.i(TAG, jn_sendBackAnimal + ":" + config.sendBackAnimal);
 
             config.sendType = SendType.valueOf(jo.optString(jn_sendType, SendType.HIT.name()));
-            Log.i(TAG, jn_sendType + ":" + config.sendType);
 
             config.dontSendFriendList = new ArrayList<>();
             if (jo.has(jn_dontSendFriendList)) {
@@ -1617,41 +1596,29 @@ public class Config {
                     config.dontSendFriendList.add(ja.getString(i));
                 }
             }
-            Log.i(TAG, jn_dontSendFriendList + ":" + String.join(",", config.dontSendFriendList));
 
             config.recallAnimalType = RecallAnimalType
                     .valueOf(jo.optString(jn_recallAnimalType, RecallAnimalType.ALWAYS.name()));
-            Log.i(TAG, jn_recallAnimalType + ":" + config.recallAnimalType);
 
             config.receiveFarmToolReward = jo.optBoolean(jn_receiveFarmToolReward, true);
-            Log.i(TAG, jn_receiveFarmToolReward + ":" + config.receiveFarmToolReward);
 
             config.recordFarmGame = jo.optBoolean(jn_recordFarmGame, true);
-            Log.i(TAG, jn_recordFarmGame + ":" + config.recordFarmGame);
 
             config.kitchen = jo.optBoolean(jn_kitchen, true);
-            Log.i(TAG, jn_kitchen + ":" + config.kitchen);
 
             config.useNewEggTool = jo.optBoolean(jn_useNewEggTool, true);
-            Log.i(TAG, jn_useNewEggTool + ":" + config.useNewEggTool);
 
             config.harvestProduce = jo.optBoolean(jn_harvestProduce, true);
-            Log.i(TAG, jn_harvestProduce + ":" + config.harvestProduce);
 
             config.donation = jo.optBoolean(jn_donation, true);
-            Log.i(TAG, jn_donation + ":" + config.donation);
 
             config.answerQuestion = jo.optBoolean(jn_answerQuestion, true);
-            Log.i(TAG, jn_answerQuestion + ":" + config.answerQuestion);
 
             config.receiveFarmTaskAward = jo.optBoolean(jn_receiveFarmTaskAward, true);
-            Log.i(TAG, jn_receiveFarmTaskAward + ":" + config.receiveFarmTaskAward);
 
             config.feedAnimal = jo.optBoolean(jn_feedAnimal, true);
-            Log.i(TAG, jn_feedAnimal + ":" + config.feedAnimal);
 
             config.useAccelerateTool = jo.optBoolean(jn_useAccelerateTool, true);
-            Log.i(TAG, jn_useAccelerateTool + ":" + config.useAccelerateTool);
 
             config.feedFriendAnimalList = new ArrayList<>();
             config.feedFriendCountList = new ArrayList<>();
@@ -1668,16 +1635,12 @@ public class Config {
                     }
                 }
             }
-            Log.i(TAG, jn_feedFriendAnimalList + ":" + String.join(",", config.feedFriendAnimalList));
 
             config.farmGameTime = Arrays.asList(jo.optString(jn_farmGameTime, "2200-2400").split(","));
-            Log.i(TAG, jn_farmGameTime + ":" + config.farmGameTime);
 
             config.animalSleepTime = Arrays.asList(jo.optString(jn_animalSleepTime, "2200-2400,0000-0559").split(","));
-            Log.i(TAG, jn_animalSleepTime + ":" + config.animalSleepTime);
 
             config.notifyFriend = jo.optBoolean(jn_notifyFriend, false);
-            Log.i(TAG, jn_notifyFriend + ":" + config.notifyFriend);
 
             config.dontNotifyFriendList = new ArrayList<>();
             if (jo.has(jn_dontNotifyFriendList)) {
@@ -1686,7 +1649,6 @@ public class Config {
                     config.dontNotifyFriendList.add(ja.getString(i));
                 }
             }
-            Log.i(TAG, jn_dontNotifyFriendList + ":" + String.join(",", config.dontNotifyFriendList));
 
             config.whoYouWantGiveTo = new ArrayList<>();
             if (jo.has(jn_whoYouWantGiveTo)) {
@@ -1695,11 +1657,8 @@ public class Config {
                     config.whoYouWantGiveTo.add(ja.getString(i));
                 }
             }
-            Log.i(TAG, jn_whoYouWantGiveTo + ":" + String.join(",", config.whoYouWantGiveTo));
-
 
             config.acceptGift = jo.optBoolean(jn_acceptGift, true);
-            Log.i(TAG, jn_acceptGift + ":" + config.acceptGift);
 
             config.visitFriendList = new ArrayList<>();
             config.visitFriendCountList = new ArrayList<>();
@@ -1716,34 +1675,26 @@ public class Config {
                     }
                 }
             }
-            Log.i(TAG, jn_visitFriendList + ":" + String.join(",", config.visitFriendList));
+
+            config.chickenDiary = jo.optBoolean(jn_chickenDiary, true);
 
             config.antOrchard = jo.optBoolean(jn_antOrchard, true);
-            Log.i(TAG, jn_antOrchard + ":" + config.antOrchard);
 
             config.receiveOrchardTaskAward = jo.optBoolean(jn_receiveOrchardTaskAward, true);
-            Log.i(TAG, jn_receiveOrchardTaskAward + ":" + config.receiveOrchardTaskAward);
 
             config.orchardSpreadManureCount = jo.optInt(jn_orchardSpreadManureCount, 0);
-            Log.i(TAG, jn_orchardSpreadManureCount + ":" + config.orchardSpreadManureCount);
 
             config.enableStall = jo.optBoolean(jn_enableStall, false);
-            Log.i(TAG, jn_enableStall + ":" + config.enableStall);
 
             config.stallAutoClose = jo.optBoolean(jn_stallAutoClose, false);
-            Log.i(TAG, jn_stallAutoClose + ":" + config.stallAutoClose);
 
             config.stallAutoOpen = jo.optBoolean(jn_stallAutoOpen, false);
-            Log.i(TAG, jn_stallAutoOpen + ":" + config.stallAutoOpen);
 
             config.stallAutoTask = jo.optBoolean(jn_stallAutoTask, true);
-            Log.i(TAG, jn_stallAutoTask + ":" + config.stallAutoTask);
 
             config.stallReceiveAward = jo.optBoolean(jn_stallReceiveAward, true);
-            Log.i(TAG, jn_stallReceiveAward + ":" + config.stallReceiveAward);
 
             config.stallOpenType = jo.optBoolean(jn_stallOpenType, true);
-            Log.i(TAG, jn_stallOpenType + ":" + config.stallOpenType);
 
             config.stallOpenList = new ArrayList<>();
             if (jo.has(jn_stallOpenList)) {
@@ -1775,52 +1726,40 @@ public class Config {
 
             config.stallDonate = jo.optBoolean(jn_stallDonate, false);
 
+            config.stallInviteRegister = jo.optBoolean(jn_stallInviteRegister, true);
+
             /* other */
             config.receivePoint = jo.optBoolean(jn_receivePoint, true);
-            Log.i(TAG, jn_receivePoint + ":" + config.receivePoint);
 
             config.openTreasureBox = jo.optBoolean(jn_openTreasureBox, true);
-            Log.i(TAG, jn_openTreasureBox + ":" + config.openTreasureBox);
 
             config.receiveCoinAsset = jo.optBoolean(jn_receiveCoinAsset, true);
-            Log.i(TAG, jn_receiveCoinAsset + ":" + config.receiveCoinAsset);
 
             config.donateCharityCoin = jo.optBoolean(jn_donateCharityCoin, false);
-            Log.i(TAG, jn_donateCharityCoin + ":" + config.donateCharityCoin);
 
             config.minExchangeCount = jo.optInt(jn_minExchangeCount);
-            Log.i(TAG, jn_minExchangeCount + ":" + config.minExchangeCount);
 
             config.latestExchangeTime = jo.optInt(jn_latestExchangeTime, 21);
-            Log.i(TAG, jn_latestExchangeTime + ":" + config.latestExchangeTime);
 
             config.syncStepCount = jo.optInt(jn_syncStepCount, 22000);
-            Log.i(TAG, jn_syncStepCount + ":" + config.syncStepCount);
 
             config.kbSignIn = jo.optBoolean(jn_kbSignIn, true);
-            Log.i(TAG, jn_kbSignIn + ":" + config.kbSignIn);
 
             config.ecoLifeTick = jo.optBoolean(jn_ecoLifeTick, true);
-            Log.i(TAG, jn_ecoLifeTick + ":" + config.ecoLifeTick);
 
             config.tiyubiz = jo.optBoolean(jn_tiyubiz, true);
-            Log.i(TAG, jn_tiyubiz + ":" + config.tiyubiz);
 
             config.insBlueBeanExchange = jo.optBoolean(jn_insBlueBeanExchange, true);
-            Log.i(TAG, jn_insBlueBeanExchange + ":" + config.insBlueBeanExchange);
 
-            config.collectSesame = jo.optBoolean(jn_collectSesame, true);
-            Log.i(TAG, jn_collectSesame + ":" + config.collectSesame);
+            config.collectSesame = jo.optBoolean(jn_collectSesame, false);
 
-            config.zcjSignIn = jo.optBoolean(jn_zcjSignIn, true);
-            Log.i(TAG, jn_zcjSignIn + ":" + config.zcjSignIn);
+            config.zcjSignIn = jo.optBoolean(jn_zcjSignIn, false);
 
-            config.merchantKmdk = jo.optBoolean(jn_merchantKmdk, true);
-            Log.i(TAG, jn_merchantKmdk + ":" + config.merchantKmdk);
+            config.merchantKmdk = jo.optBoolean(jn_merchantKmdk, false);
+
         } catch (Throwable t) {
             Log.printStackTrace(TAG, t);
             if (json != null) {
-                Log.i(TAG, "配置文件格式有误，已重置配置文件并备份原文件");
                 Log.infoChanged("配置文件格式有误，已重置配置文件并备份原文件", json);
                 FileUtils.write2File(json, FileUtils.getBackupFile(FileUtils.getConfigFile()));
             }
@@ -1828,7 +1767,6 @@ public class Config {
         }
         String formatted = config2Json(config);
         if (!formatted.equals(json)) {
-            Log.i(TAG, "重新格式化 config.json");
             Log.infoChanged("重新格式化 config.json，原", json);
             Log.infoChanged("重新格式化 config.json，新", formatted);
             FileUtils.write2File(formatted, FileUtils.getConfigFile());
@@ -1941,10 +1879,12 @@ public class Config {
             jo.put(jn_ancientTree, config.ancientTree);
 
             ja = new JSONArray();
-            for (String s : config.ancientTreeAreaCodeList) {
-                ja.put(s);
+            for (int i = 0; i < config.ancientTreeCityCodeList.size(); i++) {
+                jaa = new JSONArray();
+                jaa.put(config.ancientTreeCityCodeList.get(i));
+                ja.put(jaa);
             }
-            jo.put(jn_ancientTreeAreaCodeList, ja);
+            jo.put(jn_ancientTreeCityCodeList, ja);
 
             jo.put(jn_reserve, config.reserve);
 
@@ -1990,6 +1930,8 @@ public class Config {
             jo.put(jn_userPatrol, config.userPatrol);
 
             jo.put(jn_animalConsumeProp, config.animalConsumeProp);
+
+            jo.put(jn_collectGiftBox, config.collectGiftBox);
 
             /* farm */
             jo.put(jn_enableFarm, config.enableFarm);
@@ -2066,6 +2008,8 @@ public class Config {
             }
             jo.put(jn_visitFriendList, ja);
 
+            jo.put(jn_chickenDiary, config.chickenDiary);
+
             jo.put(jn_antOrchard, config.antOrchard);
 
             jo.put(jn_receiveOrchardTaskAward, config.receiveOrchardTaskAward);
@@ -2096,7 +2040,7 @@ public class Config {
             jo.put(jn_stallAllowOpenTime, config.stallAllowOpenTime);
             jo.put(jn_stallSelfOpenTime, config.stallSelfOpenTime);
             jo.put(jn_stallDonate, config.stallDonate);
-
+            jo.put(jn_stallInviteRegister, config.stallInviteRegister);
 
             /* other */
             jo.put(jn_receivePoint, config.receivePoint);
@@ -2134,15 +2078,15 @@ public class Config {
     }
 
     public static String formatJson(JSONObject jo, boolean removeQuote) {
-        String formated;
+        String formatted;
         try {
-            formated = jo.toString(4);
+            formatted = jo.toString(4);
         } catch (Throwable t) {
             return jo.toString();
         }
         if (!removeQuote)
-            return formated;
-        StringBuilder sb = new StringBuilder(formated);
+            return formatted;
+        StringBuilder sb = new StringBuilder(formatted);
         char currentChar, lastNonSpaceChar = 0;
         for (int i = 0; i < sb.length(); i++) {
             currentChar = sb.charAt(i);
@@ -2168,8 +2112,8 @@ public class Config {
                     lastNonSpaceChar = currentChar;
             }
         }
-        formated = sb.toString();
-        return formated;
+        formatted = sb.toString();
+        return formatted;
     }
 
     private static PendingIntent alarm7Pi;

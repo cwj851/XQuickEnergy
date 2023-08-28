@@ -1,173 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="6dp"
-    android:gravity="center_horizontal"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:padding="@dimen/_12sdp"
+    tools:context=".ui.MainActivity">
+
+    <TextView
+        android:id="@+id/tv_unactive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="@string/unactivated"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_14ssp" />
 
     <TextView
         android:id="@+id/tv_statistics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FF000000" />
-
-    <ImageView
-        android:id="@+id/btn_test"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="50dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/the_image_of_main"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/text_or_icon"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
         android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_unactive" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:src="@drawable/boy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_statistics"
+        app:layout_constraintBottom_toTopOf="@id/btn_help"
+        app:riv_oval="true" />
+
+    <Button
+        android:id="@+id/btn_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/tips"
         android:onClick="onClick"
-        android:scaleType="centerInside"
-        android:src="@drawable/main" />
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardFlow" />
 
-    <LinearLayout
-        android:id="@+id/lyt_bottom1"
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/cardFlow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:baselineAligned="false"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginStart="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_1sdp"
+        app:constraint_referenced_ids="btn_forest_log,btn_farm_log,btn_other_log,btn_friend_watch,btn_github,btn_settings"
+        app:flow_horizontalGap="@dimen/_1sdp"
+        app:flow_maxElementsWrap="3"
+        app:flow_verticalGap="@dimen/_1sdp"
+        app:flow_wrapMode="aligned"
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:layout_constraintBottom_toTopOf="@id/tv_version" />
 
-        <Button
-            android:id="@+id/btn_forest_log"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/forest"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/forest_log"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_farm_log"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/farm"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/farm_log"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/btn_other_log"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/other"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/other_log"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lyt_bottom2"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_forest_log"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:baselineAligned="false"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_1"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
 
-        <Button
-            android:id="@+id/btn_friend_watch"
-            android:textAllCaps="false"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/friend"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/friend_watch"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
+            android:padding="@dimen/_2sdp">
 
-        <Button
-            android:id="@+id/btn_github"
-            android:textAllCaps="false"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageForest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/forest"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:gravity="center"
+                android:text="@string/forest_log"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_farm_log"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_2"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/github"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/visit_github"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
+            android:padding="@dimen/_2sdp">
 
-        <Button
-            android:id="@+id/btn_settings"
-            android:textAllCaps="false"
-            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageFarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/farm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="@string/farm_log"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_other_log"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_3"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_main"
-            android:drawableTop="@drawable/setting"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:onClick="onClick"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="@string/settings"
-            android:textAlignment="gravity"
-            android:textColor="@color/main_button_text"
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:padding="@dimen/_2sdp">
 
-</LinearLayout>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageOther"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/other"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="@string/other_log"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_friend_watch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_4"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_2sdp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageFriends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/friends"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="@string/friend_watch"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_github"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_5"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_2sdp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageGtihub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/github"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="@string/visit_github"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        app:cardBackgroundColor="@color/dashboard_item_6"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_2sdp">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageSetting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:gravity="center"
+                android:src="@drawable/setting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:text="@string/settings"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/text_or_icon"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

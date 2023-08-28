@@ -59,5 +59,4 @@ public class Log {
     public static String getFormatTime() {
         return getFormatDateTime().split(" ")[1];
     }
-
 }

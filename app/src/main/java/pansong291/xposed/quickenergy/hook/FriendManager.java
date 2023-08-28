@@ -23,16 +23,22 @@ public class FriendManager {
                 @Override
                 public void run() {
                     try {
-                        Class<?> clsUserIndependentCache = loader.loadClass("com.alipay.mobile.socialcommonsdk.bizdata.UserIndependentCache");
-                        Class<?> clsAliAccountDaoOp = loader.loadClass("com.alipay.mobile.socialcommonsdk.bizdata.contact.data.AliAccountDaoOp");
-                        Object aliAccountDaoOp = XposedHelpers.callStaticMethod(clsUserIndependentCache, "getCacheObj", clsAliAccountDaoOp);
-                        List<?> allFriends = (List<?>) XposedHelpers.callMethod(aliAccountDaoOp, "getAllFriends", new Object[0]);
+                        Class<?> clsUserIndependentCache = loader
+                                .loadClass("com.alipay.mobile.socialcommonsdk.bizdata.UserIndependentCache");
+                        Class<?> clsAliAccountDaoOp = loader
+                                .loadClass("com.alipay.mobile.socialcommonsdk.bizdata.contact.data.AliAccountDaoOp");
+                        Object aliAccountDaoOp = XposedHelpers.callStaticMethod(clsUserIndependentCache, "getCacheObj",
+                                clsAliAccountDaoOp);
+                        List<?> allFriends = (List<?>) XposedHelpers.callMethod(aliAccountDaoOp, "getAllFriends",
+                                new Object[0]);
                         for (Object friend : allFriends) {
                             String userId = (String) XposedHelpers.findField(friend.getClass(), "userId").get(friend);
                             String account = (String) XposedHelpers.findField(friend.getClass(), "account").get(friend);
-                            String name = (String)XposedHelpers.findField(friend.getClass(), "name").get(friend);
-                            String nickName = (String)XposedHelpers.findField(friend.getClass(), "nickName").get(friend);
-                            String remarkName = (String)XposedHelpers.findField(friend.getClass(), "remarkName").get(friend);
+                            String name = (String) XposedHelpers.findField(friend.getClass(), "name").get(friend);
+                            String nickName = (String) XposedHelpers.findField(friend.getClass(), "nickName")
+                                    .get(friend);
+                            String remarkName = (String) XposedHelpers.findField(friend.getClass(), "remarkName")
+                                    .get(friend);
                             if (StringUtil.isEmpty(remarkName)) {
                                 remarkName = nickName;
                             }

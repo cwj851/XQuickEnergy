@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#F4F4F4</color>
-    <color name="secondary_text">#9CA1B5</color>
-    <color name="main_button">#FFFFFF</color>
-    <color name="main_button_pressed">#FFEBCD</color>
-    <color name="main_button_text">#290C4C</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#BFEFF4</color>
+
+    <color name="background">#BFEFF4</color>
+    <color name="text_or_icon">#FFFFFF</color>
+    <color name="secondary_text">#868997</color>
     <color name="dashboard_item_1">#01CD98</color>
     <color name="dashboard_item_2">#5351FC</color>
     <color name="dashboard_item_3">#E64000</color>
-    <color name="dashboard_item_4">#F6B900</color>
+    <color name="dashboard_item_4">#00BFFF</color>
+    <color name="dashboard_item_5">#FFC0CB</color>
+    <color name="dashboard_item_6">#F6B900</color>
 
-    <color name="colorPrimary">#00b578</color>
-    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="colorPrimary">#8DDEDF</color>
+    <color name="textColorPrimary">#000000</color>
     <color name="navigationBarColor">#AA000000</color>
 
+    <color name="colorAccent">#12a4e7</color>
+    
 </resources>

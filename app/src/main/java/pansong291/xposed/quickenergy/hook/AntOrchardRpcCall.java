@@ -1,5 +1,10 @@
 package pansong291.xposed.quickenergy.hook;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
+import pansong291.xposed.quickenergy.util.RandomUtils;
+
 public class AntOrchardRpcCall {
         private static final String VERSION = "0.1.2308151427.44";
 

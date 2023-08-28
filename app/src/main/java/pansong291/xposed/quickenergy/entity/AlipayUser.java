@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import pansong291.xposed.quickenergy.util.FriendIdMap;
 
 public class AlipayUser extends IdAndName {

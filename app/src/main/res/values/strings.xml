@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sesame</string>
+    <string name="app_name">仙人掌</string>
     <string name="start_check_energy">Start check energy</string>
     <color name="color_alpha">#00000000</color>
     <color name="color_btn_down">#F0F0F0</color>
@@ -101,13 +101,11 @@
     <string name="reserve_list">Reserve list</string>
     <string name="eco_life_tick">Eco life tick</string>
     <string name="ancient_tree">Ancient tree</string>
-    <string name="ancient_tree_area_code_list">Ancient tree area code list</string>
+    <string name="ancient_tree_citycode_list">Ancient tree citycode list</string>
     <string name="ancient_tree_only_week">Ancient tree only week</string>
     <string name="antdodo_collect">Antdodo collect</string>
     <string name="ant_ocean">Ant ocean</string>
     <string name="water_friend_count">Water friend count</string>
-    <string name="the_image_of_main" translatable="false">The image of main</string>
-    <string name="the_image_of_unactivated" translatable="false">The image of unactivated</string>
     <string name="beach">Beach</string>
     <string name="beach_list">Beach list</string>
     <string name="test">Test</string>
@@ -143,5 +141,8 @@
     <string name="stall_allow_open_time">Stall allow open time</string>
     <string name="stall_self_open_time">Stall self open time</string>
     <string name="stall_black_list">Stall black list</string>
+    <string name="chicken_diary">Chicken diary</string>
+    <string name="collect_gift_box">Collect gift box</string>
+    <string name="stall_invite_register">Stall invite register</string>
 
 </resources>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 import pansong291.xposed.quickenergy.R;
 import pansong291.xposed.quickenergy.entity.AlipayUser;
-import pansong291.xposed.quickenergy.entity.AreaCode;
+import pansong291.xposed.quickenergy.entity.CityCode;
 import pansong291.xposed.quickenergy.entity.CooperateUser;
 import pansong291.xposed.quickenergy.entity.IdAndName;
 import pansong291.xposed.quickenergy.util.Config;
@@ -146,7 +146,7 @@ public class ListDialog {
                     curIdAndName = (IdAndName) p1.getAdapter().getItem(p3);
                     if (curIdAndName instanceof CooperateUser) {
                         showDeleteDialog(p1.getContext());
-                    } else if (!(curIdAndName instanceof AreaCode)) {
+                    } else {
                         showOptionsDialog(p1.getContext());
                     }
                     return true;
@@ -155,9 +155,9 @@ public class ListDialog {
     }
 
     /**
-     * Show the EDT dialog and set the title, hint, and text based on the current context.
+     * Show the EDT dialog and set the title, hint, and text based on the current context
      *
-     * @param  c  the context in which the dialog is shown
+     * @param c the context in which the dialog is shown
      */
     private static void showEdtDialog(Context c) {
         try {

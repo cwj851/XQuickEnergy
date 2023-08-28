@@ -11,7 +11,7 @@ public class FriendIdMap {
 
     public static boolean shouldReload = false;
 
-    public static String currentUid = null;
+    public static String currentUid = null;;
 
     private static Map<String, String> idMap;
     private static boolean hasChanged = false;
@@ -79,19 +79,19 @@ public class FriendIdMap {
         return id;
     }
 
-//    public static List<String> getIncompleteUnknownIds() {
-//        List<String> idList = new ArrayList<>();
-//        for (Map.Entry<String, String> entry : getIdMap().entrySet()) {
-//            if ("我".equals(entry.getValue())) {
-//                continue;
-//            }
-//            if (entry.getValue().split("\\|").length < 2) {
-//                idList.add(entry.getKey());
-//                // Log.i(TAG, "未知id: " + entry.getKey());
-//            }
-//        }
-//        return idList;
-//    }
+    // public static List<String> getIncompleteUnknownIds() {
+    //     List<String> idList = new ArrayList<>();
+    //     for (Map.Entry<String, String> entry : getIdMap().entrySet()) {
+    //         if ("我".equals(entry.getValue())) {
+    //             continue;
+    //         }
+    //         if (entry.getValue().split("\\|").length < 2) {
+    //             idList.add(entry.getKey());
+    //             // Log.i(TAG, "未知id: " + entry.getKey());
+    //         }
+    //     }
+    //     return idList;
+    // }
 
     public static List<String> getFriendIds() {
         List<String> idList = new ArrayList<>();

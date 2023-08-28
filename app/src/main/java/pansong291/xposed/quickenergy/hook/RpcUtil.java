@@ -83,10 +83,11 @@ public class RpcUtil {
                 if (jo.optString("memo", "").contains("系统繁忙")) {
                     isInterrupted = true;
                     AntForestNotification.setContentText("系统繁忙，可能需要滑动验证");
-                    Log.recordLog("系统繁忙，可能需要滑动验证");
+                    Log.forest("系统繁忙，可能需要滑动验证");
                     return str;
                 }
-            } catch (Throwable ignored) { }
+            } catch (Throwable ignored) {
+            }
             return str;
         } catch (Throwable t) {
             Log.i(TAG, "invoke err:");
@@ -111,8 +112,9 @@ public class RpcUtil {
                         if (Config.waitWhenException() > 0) {
                             long waitTime = System.currentTimeMillis() + Config.waitWhenException();
                             RuntimeInfo.getInstance().put(RuntimeInfo.RuntimeInfoKey.ForestPauseTime, waitTime);
-                            AntForestNotification.setContentText("触发异常,等待至" + DateFormat.getDateTimeInstance().format(waitTime));
-                            Log.recordLog("触发异常,等待至" + DateFormat.getDateTimeInstance().format(waitTime));
+                            AntForestNotification
+                                    .setContentText("触发异常,等待至" + DateFormat.getDateTimeInstance().format(waitTime));
+                            Log.forest("触发异常,等待至" + DateFormat.getDateTimeInstance().format(waitTime));
                         }
                     } else if (msg.contains("MMTPException")) {
                         return "{\"resultCode\":\"FAIL\",\"memo\":\"MMTPException\",\"resultDesc\":\"MMTPException\"}";
@@ -126,8 +128,22 @@ public class RpcUtil {
     public static String getResponse(Object resp) throws Throwable {
         if (getResponseMethod == null)
             getResponseMethod = resp.getClass().getMethod(ClassMember.getResponse);
-
         return (String) getResponseMethod.invoke(resp);
     }
+
+    /*
+     * public static String getResponse(Object resp) {
+     * try {
+     * if(getResponseMethod == null)
+     * getResponseMethod = resp.getClass().getMethod(ClassMember.getResponse);
+     * 
+     * return (String) getResponseMethod.invoke(resp);
+     * } catch(Throwable t) {
+     * Log.i(TAG, "getResponse err:");
+     * Log.printStackTrace(TAG, t);
+     * }
+     * return null;
+     * }
+     */
 
 }

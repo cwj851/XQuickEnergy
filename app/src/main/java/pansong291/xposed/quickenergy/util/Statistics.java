@@ -86,7 +86,7 @@ public class Statistics {
             jn_memberSignInList = "memberSignInList", jn_kbSignIn = "kbSignIn",
             jn_exchangeDoubleCard = "exchangeDoubleCard", jn_exchangeTimes = "exchangeTimes",
             jn_dailyAnswerList = "dailyAnswerList", jn_doubleTimes = "doubleTimes",
-            jn_SpreadManureList = "SpreadManureList";
+            jn_SpreadManureList = "SpreadManureList", jn_protectBubbleList = "protectBubbleList";
 
     private TimeStatistics year;
     private TimeStatistics month;
@@ -101,6 +101,7 @@ public class Statistics {
     private ArrayList<String> beachTodayList;
     private ArrayList<String> ancientTreeCityCodeList;
     private ArrayList<String> exchangeList;
+    private ArrayList<String> protectBubbleList;
     private int exchangeDoubleCard = 0;
     private int exchangeTimes = 0;
     private int doubleTimes = 0;
@@ -428,7 +429,7 @@ public class Statistics {
         } else {
             vfl = stat.visitFriendLogList.get(index);
         }
-        vfl.visitCount= count;
+        vfl.visitCount = count;
         save();
     }
 
@@ -484,11 +485,28 @@ public class Statistics {
         }
     }
 
+    public static boolean canProtectBubbleToday(String uid) {
+        Statistics stat = getStatistics();
+        return !stat.protectBubbleList.contains(uid);
+    }
+
+    public static void protectBubbleToday(String uid) {
+        Statistics stat = getStatistics();
+        if (!stat.protectBubbleList.contains(uid)) {
+            stat.protectBubbleList.add(uid);
+            save();
+        }
+    }
+
     public static boolean canExchangeDoubleCardToday() {
         Statistics stat = getStatistics();
         if (stat.exchangeDoubleCard < stat.day.time) {
             return true;
-        } else return stat.exchangeTimes < Config.getExchangeEnergyDoubleClickCount();
+        } else if (stat.exchangeTimes < Config.getExchangeEnergyDoubleClickCount()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void exchangeDoubleCardToday(boolean isSuccess) {
@@ -610,6 +628,7 @@ public class Statistics {
         stat.cooperateWaterList.clear();
         stat.syncStepList.clear();
         stat.exchangeList.clear();
+        stat.protectBubbleList.clear();
         stat.reserveLogList.clear();
         stat.beachTodayList.clear();
         stat.ancientTreeCityCodeList.clear();
@@ -661,6 +680,8 @@ public class Statistics {
             stat.beachTodayList = new ArrayList<>();
         if (stat.exchangeList == null)
             stat.exchangeList = new ArrayList<>();
+        if (stat.protectBubbleList == null)
+            stat.protectBubbleList = new ArrayList<>();
         if (stat.dailyAnswerList == null)
             stat.dailyAnswerList = new HashSet<>();
         return stat;
@@ -763,6 +784,16 @@ public class Statistics {
                 }
             }
 
+            stat.protectBubbleList = new ArrayList<>();
+
+            if (jo.has(jn_protectBubbleList)) {
+                JSONArray ja = jo.getJSONArray(jn_protectBubbleList);
+                for (int i = 0; i < ja.length(); i++) {
+                    stat.protectBubbleList.add(ja.getString(i));
+
+                }
+            }
+
             stat.reserveLogList = new ArrayList<>();
 
             if (jo.has(Config.jn_reserveList)) {
@@ -814,6 +845,7 @@ public class Statistics {
             }
 
             stat.visitFriendLogList = new ArrayList<>();
+
             if (jo.has(Config.jn_visitFriendList)) {
                 JSONArray ja = jo.getJSONArray(Config.jn_visitFriendList);
                 for (int i = 0; i < ja.length(); i++) {
@@ -826,6 +858,7 @@ public class Statistics {
             }
 
             stat.donationEggList = new ArrayList<>();
+
             if (jo.has(jn_donationEggList)) {
                 JSONArray ja = jo.getJSONArray(jn_donationEggList);
                 for (int i = 0; i < ja.length(); i++) {
@@ -835,6 +868,7 @@ public class Statistics {
             }
 
             stat.SpreadManureList = new ArrayList<>();
+
             if (jo.has(jn_SpreadManureList)) {
                 JSONArray ja = jo.getJSONArray(jn_SpreadManureList);
                 for (int i = 0; i < ja.length(); i++) {
@@ -876,7 +910,6 @@ public class Statistics {
         } catch (Throwable t) {
             Log.printStackTrace(TAG, t);
             if (json != null) {
-                Log.i(TAG, "统计文件格式有误，已重置统计文件并备份原文件");
                 Log.infoChanged("统计文件格式有误，已重置统计文件并备份原文件", json);
                 FileUtils.write2File(json, FileUtils.getBackupFile(FileUtils.getStatisticsFile()));
             }
@@ -884,7 +917,6 @@ public class Statistics {
         }
         String formatted = statistics2Json(stat);
         if (!formatted.equals(json)) {
-            Log.i(TAG, "重新格式化 statistics.json");
             Log.infoChanged("重新格式化 statistics.json", json);
             FileUtils.write2File(formatted, FileUtils.getStatisticsFile());
         }
@@ -951,6 +983,12 @@ public class Statistics {
                 ja.put(stat.exchangeList.get(i));
             }
             jo.put(jn_exchangeList, ja);
+
+            ja = new JSONArray();
+            for (int i = 0; i < stat.protectBubbleList.size(); i++) {
+                ja.put(stat.protectBubbleList.get(i));
+            }
+            jo.put(jn_protectBubbleList, ja);
 
             ja = new JSONArray();
             for (int i = 0; i < stat.ancientTreeCityCodeList.size(); i++) {
